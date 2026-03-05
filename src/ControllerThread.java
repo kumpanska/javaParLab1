@@ -31,9 +31,5 @@ public class ControllerThread implements Runnable {
             });
             timers[i].start();
         }
-        for (Thread t : timers) {
-            try { t.join(); }
-            catch (InterruptedException e) { Thread.currentThread().interrupt(); }
-        }
     }
 }

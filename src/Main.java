@@ -20,10 +20,6 @@ public class Main {
         {
             w.start();
         }
-        for (WorkerThread w : workers)
-        {
-            w.join();
-        }
     }
     static void generateStepsDuration(){
         Random random = new Random();
