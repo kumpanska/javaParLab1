@@ -18,6 +18,6 @@ public class WorkerThread extends Thread {
             currentElement += step;
             count++;
         } while (!controller.isAllowed(id));
-        System.out.println("Thread " + id + ": sum=" + sum + ", count=" + count);
+        System.out.println("Thread " + id + ": sum=" + sum + ", count=" + count + ", steps=" + step);
     }
 }

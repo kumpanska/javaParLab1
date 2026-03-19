@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ControllerThread implements Runnable {
 
     private final int[] durations;
@@ -17,19 +19,23 @@ public class ControllerThread implements Runnable {
 
     @Override
     public void run() {
-        Thread[] timers = new Thread[durations.length];
-        for (int i = 0; i < durations.length; i++) {
-            final int index = i;
-            final int waitTime = durations[i];
-            timers[i] = new Thread(() -> {
+        Integer[] order = new Integer[durations.length];
+        for (int i = 0; i < durations.length; i++)
+            order[i] = i;
+        Arrays.sort(order, (a, b) -> durations[a] - durations[b]);
+        int elapsed = 0;
+        for (int idx : order) {
+            int waitTime = durations[idx] - elapsed;
+            if (waitTime > 0) {
                 try {
                     Thread.sleep(waitTime);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
+                    return;
                 }
-                allow(index);
-            });
-            timers[i].start();
+                elapsed += waitTime;
+            }
+            allow(idx);;
         }
     }
 }
